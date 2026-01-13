@@ -697,6 +697,9 @@ fn search<NODE: NodeType>(
         };
 
         if !NODE::ROOT && !is_loss(best_score) {
+            if is_quiet && depth <= 3 && history < -4000 * depth {
+                   continue;
+               }
             // Late Move Pruning (LMP)
             skip_quiets |= !in_check
                 && move_count
