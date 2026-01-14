@@ -977,6 +977,13 @@ fn search<NODE: NodeType>(
 
     if move_count == 0 {
         if excluded {
+   if !td.board.captured_piece().is_some() && ply > 0 {
+       let prev_move = td.stack[ply - 1].mv;
+       if prev_move.is_quiet() {
+           let bonus = (64 * depth).min(500) - 220;
+           td.quiet_history.update(td.board.prior_threats(), !td.board.side_to_move(), prev_move, bonus);
+       }
+   }
             return -Score::TB_WIN_IN_MAX + 1;
         }
 
