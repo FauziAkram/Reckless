@@ -172,7 +172,10 @@ fn go(threads: &mut ThreadPool, settings: &Settings, shared: &Arc<SharedContext>
     });
 
     let min_score = threads.iter().map(|v| v.root_moves[0].score).min().unwrap();
-    let vote_value = |td: &ThreadData| (td.root_moves[0].score - min_score + 10) * td.completed_depth;
+    let vote_value = |td: &ThreadData| {
+     let pv_weight = if td.root_moves[0].pv.line().len() > 2 { 1 } else { 0 };
+     (td.root_moves[0].score - min_score + 14) * td.completed_depth * pv_weight
+ };
 
     let mut votes: HashMap<&Move, i32> = HashMap::new();
     for result in threads.iter() {
