@@ -1236,8 +1236,6 @@ fn qsearch<NODE: NodeType>(td: &mut ThreadData, mut alpha: i32, beta: i32, ply: 
                 continue;
             }
         }
-        
-        }
 
         make_move(td, ply, mv);
 
