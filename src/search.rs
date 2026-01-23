@@ -1,6 +1,7 @@
 use crate::{
     evaluation::correct_eval,
     movepick::{MovePicker, Stage},
+    parameters::*,
     thread::{RootMove, ThreadData},
     transposition::{Bound, TtDepth},
     types::{
@@ -49,6 +50,10 @@ impl NodeType for NonPV {
 }
 
 pub fn start(td: &mut ThreadData, report: Report) {
+    println!("info string SPSA Tune: xx1={} xx2={} xx3={} xx4={} xx5={} xx6={} xx7={} xx8={}", 
+        xx1(), xx2(), xx3(), xx4(), xx5(), xx6(), xx7(), xx8());
+    println!("xx1 = {}",xx1());
+    println!("xx1 = {}",xx1());
     td.completed_depth = 0;
     td.stopped = false;
 
@@ -645,9 +650,9 @@ fn search<NODE: NodeType>(
 
         if score < singular_beta {
             let double_margin =
-                -4 + 256 * NODE::PV as i32 - 16 * tt_move.is_quiet() as i32 - 16 * correction_value.abs() / 128;
+                -xx1() + xx2() * NODE::PV as i32 - xx3() * tt_move.is_quiet() as i32 - xx4() * correction_value.abs() / 1024;
             let triple_margin =
-                48 + 288 * NODE::PV as i32 - 16 * tt_move.is_quiet() as i32 - 16 * correction_value.abs() / 128;
+                xx5() + xx6() * NODE::PV as i32 - xx7() * tt_move.is_quiet() as i32 - xx8() * correction_value.abs() / 1024;
 
             extension = 1;
             extension += (score < singular_beta - double_margin) as i32;
