@@ -32,3 +32,13 @@ macro_rules! define {
         }
     };
 }
+define!(
+    i32 xx1: 4;
+    i32 xx2: 256;
+    i32 xx3: 16;
+    i32 xx4: 64;
+    i32 xx5: 48;
+    i32 xx6: 288;
+    i32 xx7: 16;
+    i32 xx8: 64;
+);
