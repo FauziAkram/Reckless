@@ -50,10 +50,6 @@ impl NodeType for NonPV {
 }
 
 pub fn start(td: &mut ThreadData, report: Report) {
-    println!("info string SPSA Tune: xx1={} xx2={} xx3={} xx4={} xx5={} xx6={} xx7={} xx8={}", 
-        xx1(), xx2(), xx3(), xx4(), xx5(), xx6(), xx7(), xx8());
-    println!("xx1 = {}",xx1());
-    println!("xx1 = {}",xx1());
     td.completed_depth = 0;
     td.stopped = false;
 
