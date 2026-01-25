@@ -757,6 +757,10 @@ fn search<NODE: NodeType>(
 
         let initial_nodes = td.nodes();
 
+        if !NODE::ROOT && depth < 10 && !td.board.see(mv, -16 * depth * depth) {
+            continue;
+        }
+        
         make_move(td, ply, mv);
 
         let mut new_depth = if move_count == 1 { depth + extension - 1 } else { depth - 1 };
