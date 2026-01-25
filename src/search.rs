@@ -1007,7 +1007,9 @@ fn search<NODE: NodeType>(
                 noisy_bonus,
             );
         } else {
-            td.quiet_history.update(td.board.threats(), td.board.side_to_move(), best_move, quiet_bonus);
+            let improving = is_valid(td.stack[ply - 2].eval) && best_score > td.stack[ply - 2].eval;
+            let final_bonus = if improving { quiet_bonus + 150 } else { quiet_bonus };
+            td.quiet_history.update(td.board.threats(), td.board.side_to_move(), best_move, final_bonus);
             update_continuation_histories(td, ply, td.board.moved_piece(best_move), best_move.to(), cont_bonus);
 
             for &mv in quiet_moves.iter() {
