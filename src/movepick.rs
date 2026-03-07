@@ -208,12 +208,13 @@ impl MovePicker {
                 continue;
             }
 
-            entry.score = td.quiet_history.get(threats, side, mv)
-                + td.conthist(ply, 1, mv)
-                + td.conthist(ply, 2, mv)
-                + td.conthist(ply, 4, mv)
-                + td.conthist(ply, 5, mv)
-                + td.conthist(ply, 6, mv);
+            let ch_score = (td.conthist(ply, 1, mv) * 1106
+                + td.conthist(ply, 2, mv) * 705
+                + td.conthist(ply, 4, mv) * 572
+                + td.conthist(ply, 5, mv) * 126
+                + td.conthist(ply, 6, mv) * 427) / 1024;
+
+            entry.score = td.quiet_history.get(threats, side, mv) + ch_score;
 
             // bonus for escaping capture
             if threatened.contains(mv.from()) {
