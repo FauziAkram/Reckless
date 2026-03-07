@@ -212,6 +212,7 @@ impl MovePicker {
                 + td.conthist(ply, 1, mv)
                 + td.conthist(ply, 2, mv)
                 + td.conthist(ply, 4, mv)
+                + td.conthist(ply, 5, mv)
                 + td.conthist(ply, 6, mv);
 
             // bonus for escaping capture
