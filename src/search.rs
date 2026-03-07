@@ -1336,19 +1336,11 @@ fn update_correction_histories(td: &mut ThreadData, depth: i32, diff: i32, ply: 
 
 fn update_continuation_histories(td: &mut ThreadData, ply: isize, piece: Piece, sq: Square, bonus: i32) {
     let conthist_weights = [(1, 1106), (2, 705), (4, 572), (5, 126), (6, 427)];
-    let mut positive_count = 0;
-    let multipliers = [87, 94, 106, 118, 114, 128, 128];
     
     for (offset, weight) in conthist_weights {
         let entry = &td.stack[ply - offset];
         if entry.mv.is_some() {
-            let history_val = td.continuation_history.get(entry.conthist, piece, sq);
-            if history_val > 0 {
-                positive_count += 1;
-            }
-
-            let m = multipliers[positive_count];
-            let update_val = (bonus * weight * m) / 131072;
+            let update_val = (bonus * weight) / 1024;
             td.continuation_history.update(entry.conthist, piece, sq, update_val);
         }
     }
