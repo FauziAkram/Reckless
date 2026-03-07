@@ -1338,7 +1338,7 @@ fn update_continuation_histories(td: &mut ThreadData, ply: isize, piece: Piece, 
     let mut positive_count = 0;
     let multipliers = [87, 94, 106, 118, 114, 128, 128];
     
-    for offset in [1, 2, 4, 6] {
+    for offset in [1, 2, 4, 5, 6] {
         let entry = &td.stack[ply - offset];
         if entry.mv.is_some() {
             let history_val = td.continuation_history.get(entry.conthist, piece, sq);
